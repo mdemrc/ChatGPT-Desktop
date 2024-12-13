@@ -11,8 +11,8 @@ namespace ChatGBT_Desktop
         public Form1()
         {
             InitializeComponent();
-            // OpenAI API anahtarýný burada gir
-            openAIChat = new OpenAIChat("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");
+            // Put Your Apikey to here
+            openAIChat = new OpenAIChat("YOUR_API_KEY_HERE");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,27 +26,23 @@ namespace ChatGBT_Desktop
 
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
-                    MessageBox.Show("Lütfen bir mesaj girin.");
+                    MessageBox.Show("LÃ¼tfen bir mesaj girin.");
                     return;
                 }
 
-                // Kullanýcý mesajýný göster - Yusuf'u kalýn yap
                 rtbChat.SelectionFont = new System.Drawing.Font(rtbChat.Font, System.Drawing.FontStyle.Bold);
                 rtbChat.AppendText("Yusuf: ");
                 rtbChat.SelectionFont = new System.Drawing.Font(rtbChat.Font, System.Drawing.FontStyle.Regular);
                 rtbChat.AppendText($"{userInput}\n");
 
-                // API'den yanýt al
                 string response = await openAIChat.SendMessageAsync(userInput, chatHistory);
 
-                // Yanýtý sohbet geçmiþine ve ekrana ekle - ChatGBT'yi kalýn yap
                 chatHistory += $"User: {userInput}\nAssistant: {response}\n";
                 rtbChat.SelectionFont = new System.Drawing.Font(rtbChat.Font, System.Drawing.FontStyle.Bold);
                 rtbChat.AppendText("ChatGBT: ");
                 rtbChat.SelectionFont = new System.Drawing.Font(rtbChat.Font, System.Drawing.FontStyle.Regular);
                 rtbChat.AppendText($"{response}\n");
 
-                // Prompt giriþini temizle
                 rtbPromptInput.Clear();
             }
         }
